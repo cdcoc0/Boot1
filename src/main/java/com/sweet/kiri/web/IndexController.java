@@ -1,5 +1,6 @@
 package com.sweet.kiri.web;
 
+import com.sweet.kiri.config.auth.LoginUser;
 import com.sweet.kiri.config.auth.dto.SessionUser;
 import com.sweet.kiri.service.posts.PostsService;
 import com.sweet.kiri.web.dto.PostsResponseDto;
@@ -19,9 +20,9 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        //SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
         if(user != null) {
             model.addAttribute("userName", user.getName())
